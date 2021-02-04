@@ -1,6 +1,14 @@
 pragma solidity >=0.4.22 <0.9.0;
 
-contract CommunityChest {
+contract ProductToken {
+
+    struct product_token {
+        uint256 tokenID;
+        bool used;
+        address customerAddress;
+        uint256 price;
+        string productID;
+    }
 
     event Deposit(address _from, uint amount);
 
