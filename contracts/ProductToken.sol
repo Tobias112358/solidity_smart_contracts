@@ -15,12 +15,7 @@ contract ProductToken {
     function withdraw() payable public {
         msg.sender.transfer(address(this).balance);
     }
-
-    // function deposit() payable public {
-    //     //require(msg.value == amt);
-    //     //emit Deposit(msg.sender, msg.value);
-        
-    // }
+    
     function() external payable {
     }
 
