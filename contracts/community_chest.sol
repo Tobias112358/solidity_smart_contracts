@@ -16,7 +16,7 @@ contract CommunityChest {
     //When the community chest hits a certain number, award one participant with the winnnings.
     function cashOverflow() payable public {
 
-        if(getBalance() > (2**round)*10**16){
+        if(getBalance() > (2**round)*10**14){
             participants[0].transfer(getBalance());
             emit Award(participants[0], msg.value);
             round = round + 1;
@@ -44,6 +44,10 @@ contract CommunityChest {
     //Returns the balance of this smart contract.
     function getBalance() public view returns (uint256) {
         return address(this).balance;
+    }
+
+    function calculateOverflowGasPrice() public pure returns (uint256) {
+        return 0;
     }
 
 }

@@ -24,7 +24,8 @@ contract ElonCoin {
     //Key/Value map.
     mapping(address => uint256) public balanceOf;
 
-    //symbol
+    //allowance
+    mapping(address => mapping(address => uint256)) public allowance;
     
 
     address owner;
@@ -36,15 +37,22 @@ contract ElonCoin {
         uint256 _value
 
     );
+
+    event Approval(
+        address indexed _owner, 
+        address indexed _spender, 
+        uint256 _value
+
+    );
     
     constructor(uint256 _initialSupply) public {
         //10% will be how rich we get
         //We want 1,000,000 each
         //market cap goal must equal 40,000,000
         //total supply = 40 mil
-        balanceOf[msg.sender] = _initialSupply;
-        totalSupply = _initialSupply;
         owner = msg.sender;
+        balanceOf[owner] = _initialSupply;
+        totalSupply = _initialSupply;
 
     }
 
@@ -60,4 +68,35 @@ contract ElonCoin {
 
         return true;
     }
+
+    //Allows _spender to withdraw from your account multiple times, up to the _value amount. 
+    //If this function is called again it overwrites the current allowance with _value.
+    function approve(address _spender, uint256 _value) public returns (bool success) {
+        //allowance
+        allowance[msg.sender][_spender] = _value;
+
+        //Approve Event
+        emit Approval(msg.sender, _spender, _value);
+
+        return true;
+    }
+
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+        require(balanceOf[_from] >= _value);
+        require(allowance[_from][msg.sender] >= _value);
+
+        //change the balance
+        balanceOf[_from] -= _value;
+        balanceOf[_to] += _value;
+
+        //Update allowance
+        allowance[_from][msg.sender] -= _value;
+        
+        //transfer event
+        emit Transfer(_from, _to, _value);
+
+        return true;
+    }
+
+
 }
