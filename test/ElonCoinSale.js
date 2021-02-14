@@ -8,7 +8,7 @@ contract('ElonCoinSale', function(accounts) {
     var admin = accounts[0];
     var buyer = accounts[1];
     var tokenPrice = 0.0000001*(10**18);
-    var tokensAvailable = 30000000;
+    var tokensAvailable = 30000000; //wei
     var numberOfTokens;
 
     it('initialises the contract with th correct values', function() {
@@ -98,10 +98,12 @@ contract('ElonCoinSale', function(accounts) {
         })
         .then(function(balance) {
             assert.equal(balance.toNumber(), 39999990, 'return all unsold tokens to admin');
-            return tokenSaleInstance.tokenPrice();
+
+            // Check that the contract has no balance
+            return web3.eth.getBalance(tokenSaleInstance.address);
         })
         .then(function(price) {
-            assert.equal(price.toNumber(), 0, 'token price was reset.');
+            assert.equal(price, 0);
         })
     })
 });
