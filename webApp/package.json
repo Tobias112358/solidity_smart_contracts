@@ -1,0 +1,17 @@
+{
+	"name": "Elon Coin Sale",
+	"version": "1.0.0",
+	"description": "Elon Coin Sale ICO",
+	"main": "truffle.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts" : {
+		"dev" : "lite-server"
+	},
+	"author": "Shaunak",
+	"license": "ISC",
+	"devDependencies": {
+		"lite-server": "^2.3.0"
+	}
+}
