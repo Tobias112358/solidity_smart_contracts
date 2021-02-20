@@ -2,7 +2,7 @@ const ElonCoin = artifacts.require("ElonCoin");
 const ElonCoinSale = artifacts.require("ElonCoinSale");
 
 
-
+//200000000 Eloncoin
 module.exports = function (deployer) {
   deployer.deploy(ElonCoin, 40000000)
   .then(function() {

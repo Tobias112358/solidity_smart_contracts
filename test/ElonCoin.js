@@ -68,9 +68,9 @@ contract('ElonCoin', function(accounts){
         .then(function(receipt) {
             assert.equal(receipt.logs.length, 1, 'triggers one event');
             assert.equal(receipt.logs[0].event, 'Transfer', 'The event should be the "Transfer" event.');
-            assert.equal(receipt.logs[0].args._from, accounts[0], 'logs the account the tokens are transferred from.');
-            assert.equal(receipt.logs[0].args._to, accounts[1], 'logs the account the tokens are transferred to.');
-            assert.equal(receipt.logs[0].args._value, 250000, 'logs the transfer amount.');
+            assert.equal(receipt.logs[0].args.from, accounts[0], 'logs the account the tokens are transferred from.');
+            assert.equal(receipt.logs[0].args.to, accounts[1], 'logs the account the tokens are transferred to.');
+            assert.equal(receipt.logs[0].args.value, 250000, 'logs the transfer amount.');
             return tokenInstance.balanceOf(accounts[1]);
         })
 
@@ -104,9 +104,9 @@ contract('ElonCoin', function(accounts){
         .then(function(receipt) {
             assert.equal(receipt.logs.length, 1, 'triggers one event');
             assert.equal(receipt.logs[0].event, 'Approval', 'The event should be the "Approval" event.');
-            assert.equal(receipt.logs[0].args._owner, accounts[0], 'logs the account the tokens are authorised by.');
-            assert.equal(receipt.logs[0].args._spender, accounts[1], 'logs the account the tokens are authorised to.');
-            assert.equal(receipt.logs[0].args._value, 100, 'logs the transfer amount.');
+            assert.equal(receipt.logs[0].args.owner, accounts[0], 'logs the account the tokens are authorised by.');
+            assert.equal(receipt.logs[0].args.spender, accounts[1], 'logs the account the tokens are authorised to.');
+            assert.equal(receipt.logs[0].args.value, 100, 'logs the transfer amount.');
             return tokenInstance.allowance(accounts[0], accounts[1]);
         })
 
@@ -155,11 +155,11 @@ contract('ElonCoin', function(accounts){
         })
         
         .then(function(receipt) {
-            assert.equal(receipt.logs.length, 1, 'triggers one event');
+            assert.equal(receipt.logs.length, 2, 'triggers two events');
             assert.equal(receipt.logs[0].event, 'Transfer', 'The event should be the "Transfer" event.');
-            assert.equal(receipt.logs[0].args._from, fromAcc, 'logs the account the tokens are authorised by.');
-            assert.equal(receipt.logs[0].args._to, toAcc, 'logs the account the tokens are authorised to.');
-            assert.equal(receipt.logs[0].args._value, 10, 'logs the transfer amount.');
+            assert.equal(receipt.logs[0].args.from, fromAcc, 'logs the account the tokens are authorised by.');
+            assert.equal(receipt.logs[0].args.to, toAcc, 'logs the account the tokens are authorised to.');
+            assert.equal(receipt.logs[0].args.value, 10, 'logs the transfer amount.');
             return tokenInstance.balanceOf(fromAcc);
         })
 
